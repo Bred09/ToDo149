@@ -1,0 +1,43 @@
+a{
+  color: #fff;
+  border-width: 1px;
+}
+a:hover{
+  text-decoration: none;
+}
+
+.btn-tc{
+  position: absolute;
+  top: 5px;
+  left: calc(50% - 72px);
+}
+.btn-rt{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 100;
+}
+
+button{
+  background: none;
+  color: #fff;
+  border: solid 1px #fff6;
+  padding: 10px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover{
+  border-color: #fff;
+}
+
+
+input{
+  background: none;
+  border: solid 1px #fff6;
+  border-radius: 5px;
+  padding: 7px;
+  color: #fff;
+}
+input:focus{
+  border-color: #fff;
+}
