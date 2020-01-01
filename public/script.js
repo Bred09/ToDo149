@@ -9,7 +9,7 @@ function push () {
 
 function accept (argument) {
     if ( !("Notification" in window) ) {
-        alert('Ваш браузер не поддреживает уведомления');
+        alert('Ваш браузер не поддерживает уведомления');
     }
     else if (Notification.permission === 'granted') {
         setTimeout(push, 5000);
@@ -52,13 +52,13 @@ h.innerHTML = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
 var d = document.querySelector('.date');
 var month = date.getMonth() + 1;
-d.innerHTML = `${date.getDate()}:${month}:19`;
+d.innerHTML = `${date.getDate()}:${month}:20`;
 
 function f1(){
 	var date = new Date();
 	h.innerHTML = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
-	d.innerHTML = `${date.getDate()}:${month}:19`;
+	d.innerHTML = `${date.getDate()}:${month}:20`;
 }
 
 setInterval(f1, 999);
