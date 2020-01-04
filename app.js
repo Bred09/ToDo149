@@ -4,6 +4,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const path = require('path');
 
+app.set('view engine', 'ejs');
 const mysql = require('mysql');
 
 
@@ -14,6 +15,7 @@ const db = mysql.createConnection({
 	password : '1599',
 	database : 'ToDo149'
 });
+
 // Connect
 db.connect((err) => {
 	if (err) {
@@ -21,37 +23,46 @@ db.connect((err) => {
 	}
 	console.log('MySQL CONNECT...');
 });
-// Create database
-
-// app.get('/createdb', (req, res) => {
-// 	let sql = 'CREATE DATABASE ToDo149';
-// 	db.query(sql, (err, result) => {
-// 		if (err) throw err;
-// 		console.log(result);
-// 		res.send('DB creted!');
-// 	})
-// })
 
 
 // Views
 // Main page
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/public/index.html');
+	res.render('index');
 });
 // Admin
 app.get('/lk', function (req, res) {
-	res.sendFile(__dirname + '/public/lk.html')
+	res.render('lk');
 });
 // Mobile version
 app.get('/mobile', function (req, res) {
-	res.sendFile(__dirname + '/public/mobile.html')
-});
-// Chat
-app.get('/chat', function (req, res) {
-	res.sendFile(__dirname + '/public/chat.html')
+	res.render('mobile');
 });
 
-// Use folder public
+// Chat
+var reqDB = 'SELECT * FROM messages';
+db.query(reqDB, (err, result) => {
+	if (err) throw err;
+
+	for(let i=0; i < result.length; i++){
+		result[i].text;
+	}
+
+	// Chat render
+	app.get('/chat', function (req, res) {
+		res.render('chat', {
+			smsText: result
+		});
+	});
+});
+
+
+// Admin
+app.get('/admin', function (req, res) {
+	res.render('admin');
+});
+
+// Use static folder "public"
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -69,11 +80,7 @@ io.on('connection', function (socket) {
 				console.log('SMS send! YES!!!');
 			})
 
-		oldSms = `SELECT * FROM messages`;
-		var os = db.query(oldSms, (err, result) => {
-			if (err) throw err;
-		})
-		io.emit('chat message', msg, oldSms);
+		io.emit('chat message', msg);
 	});
 
 	// Disconnect

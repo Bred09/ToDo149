@@ -9,7 +9,7 @@
 </head>
 <body><div class="shadow">
 	<a href="/"><button class="btn-rt">На главную</button></a>
-	<h1>chat</h1>
+	
 
 	<div class="main">
 		<div class="form">
@@ -19,8 +19,13 @@
 			</form>
 		</div>
 
-		<div class="sms"></div>
-		<p><h1 class="old-sms"></h1></p>
+		<div class="sms">
+			<h3>
+				<% for (var i = 0; i < smsText.length; i++) { %>
+		            <p><%= smsText[i].text %></p>
+		        <% } %>
+			</h3>
+		</div>
 	</div>
 </div>
 
@@ -32,15 +37,14 @@
 		var socket = io();
 
 		$('form').submit((e) => {
-	      e.preventDefault();
+	      // e.preventDefault();
 	      socket.emit('chat message', $('.m').val());
 	      $('.m').val('');
 	      return false;
 	    });
 
-	    socket.on('chat message', function(msg, oldSms){
+	    socket.on('chat message', function(msg){
 	    	$('.sms').append($('<li>').text(msg));
-	    	$('.old-sms').append($('<p>').text(oldSms));
 	    });
 	  });
 </script>

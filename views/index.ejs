@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="btn.css">
+
+	<title>Расписание на сегодня</title>
+</head>
+<body>
+
+	<div class="main">
+		<a href="/lk"><button class="btn-rt">Личный кабинет</button></a>
+		<a href="/chat"><button class="btn-tc">Онлайн чат</button></a>
+		<center>
+			<div class="title">
+				<h1 class="day">День</h1>
+				<p><b class="hours">00:00</b> <span class="date">00.00.00</span></p>
+			</div>
+
+
+
+				<div class="box">
+					<table width="100%" border="1" cellspacing="0" cellpadding="4">
+						<caption><h1>Расписание на завтра</caption>
+
+						<tr>
+							<th class="din-din">Расписание звонков</th>
+							<th>5 А</th>
+							<th>5 Б</th>
+							<th>5 В</th>
+						</tr>
+
+						<tr title="Кабинет" onclick="print();"><th>Каб.</th></tr>
+
+						<tr>
+							<td>08:30 - 09:10</td>
+							<td title="Русская словестность">Рус.слов</td>
+							<td>Математика</td>
+							<td title="Физическая культура">Физ-ра</td>
+						</tr>
+
+						<tr>
+							<td>09:25-10:05</td>
+							<td title="Всеобщая история">Всеобщ.ист</td>
+							<td title="Русский язык">Рус.яз</td>
+							<td title="Всеобщая история">Всеобщ.ист</td>
+						</tr>
+
+						<tr>
+							<td>Смог, раз</td>
+							<td>5</td>
+							<td>5</td>
+							<td>Всеобщ.история</td>
+						</tr>
+					</table>
+
+					<table width="100%" border="1" cellspacing="0" cellpadding="4">
+						<br>
+
+						<tr>
+							<th class="din-din">Расписание звонков</th>
+							<th>10А</th>
+							<th>10Б</th>
+							<th>10В</th>
+						</tr>
+
+						<tr>
+							<td>08:30 - 09:25</td>
+							<td>Всеобщ.история</td>
+							<td>2</td>
+							<td>1</td>
+						</tr>
+
+						<tr>
+							<td>3</td>
+							<td>6</td>
+							<td>Всеобщ.история</td>
+							<td>7</td>
+						</tr>
+
+						<tr>
+							<td>Смог, раз</td>
+							<td>5</td>
+							<td>5</td>
+							<td>Всеобщ.история</td>
+						</tr>
+					</table>
+
+					<table width="100%" border="1" cellspacing="0" cellpadding="4">
+						<br>
+
+						<tr>
+							<th class="din-din">Расписание звонков</th>
+							<th>10А</th>
+							<th>10Б</th>
+							<th>10В</th>
+						</tr>
+
+						<tr>
+							<td>08:30 - 09:25</td>
+							<td>Всеобщ.история</td>
+							<td>2</td>
+							<td>1</td>
+						</tr>
+
+						<tr>
+							<td>5</td>
+							<td>6</td>
+							<td>Всеобщ.история</td>
+							<td><a href="">по общему</a></td>
+						</tr>
+
+						<tr>
+							<td>Смог, раз</td>
+							<td>5</td>
+							<td>5</td>
+							<td>Всеобщ.история</td>
+						</tr>
+					</table>
+				</div>
+		</center>
+
+
+
+			<div class="footer">
+				<p>
+					Посмотреть подробную информацию о нашей школе вы можете на нашем <a href="http://школа149.екатеринбург.рф" target="_blank"><b>официальном сайте</b></a> или в группе <a href="https://vk.com/school149ekb" target="_blank"><b>Вконтакте</b></a>
+
+					<button onclick="accept()">Подпись</button>
+				</p>
+			</div>
+
+
+	</div>
+	<div class="mobile">
+		<p>
+			Ваше устройство не поддерживает полную версию сайта, пожалуйста, перейдите на мобильную
+		</p>
+		<a href="/mobile"><button>мобильная версия</button></a>
+	</div>
+
+<script src="script.js"></script>
+<script src="date.js"></script>
+</body>
+</html>

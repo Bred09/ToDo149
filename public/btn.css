@@ -41,3 +41,14 @@ input{
 input:focus{
   border-color: #fff;
 }
+
+select{
+  background: none;
+  color: #fff;
+  border: 1px solid #fff6;
+  padding: 5px;
+  border-radius: 5px;
+}
+select:hover{
+  border-color: #fff;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/lk.css">
+	<link rel="stylesheet" href="/btn.css">
+
+	<title>Вход в личный кабинет</title>
+</head>
+<body>
+	<a href="/"><button class="btn-rt">На главную</button></a>
+	<div class="sidebar">
+		<form action="">
+			<ul>
+				<li>Логин<input type="text" class="login"></li><br>
+				<li>Пароль<input type="password" class="password"></li><br>
+				<li><button type="button" onclick="signin();">Войти</button></li>
+			</ul>
+		</form>
+	</div>
+	<div class="sidebar1"><div class="shadow">
+		<p>
+			В панель администратора может входить только <a href="https://vk.com/id19641434" target="_blank">Наталия Владимировна</a>. Если вы не являетесь адмисистратором, пожалуйста, перейдите на страницу расписания, нажав на кпопку "На главную" в правом вверхнем углу.
+		</p>
+	</div></div>
+
+	<script>
+		const login = 'Nata';
+		const password = 'Vlad';
+		function signin() {
+			var log = document.querySelector('.login').value;
+			var pass = document.querySelector('.password').value;
+
+			if (pass == password && log == login) {
+				location.href = '/admin';
+			} else {
+				alert(`Пароль или логин не верны. Попробуйте ещё раз`)
+			}
+		}
+
+	</script>
+</body>
+</html>

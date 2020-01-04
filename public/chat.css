@@ -1,3 +1,8 @@
+.sms{
+  overflow-y: scroll;
+  height: 500px;
+}
+
 .main{
 	max-width: 1300px;
 	text-align: center;
