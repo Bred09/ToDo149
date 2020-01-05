@@ -10,10 +10,10 @@ const mysql = require('mysql');
 
 // Connect to DB
 const db = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : '1599',
-	database : 'ToDo149'
+	host     : 'db4free.net',
+	user     : 'rootik',
+	password : 'qweasdzxc',
+	database : 'todo149'
 });
 
 // Connect
@@ -39,24 +39,6 @@ app.get('/mobile', function (req, res) {
 	res.render('mobile');
 });
 
-// Chat
-var reqDB = 'SELECT * FROM messages';
-db.query(reqDB, (err, result) => {
-	if (err) throw err;
-
-	for(let i=0; i < result.length; i++){
-		result[i].text;
-	}
-
-	// Chat render
-	app.get('/chat', function (req, res) {
-		res.render('chat', {
-			smsText: result
-		});
-	});
-});
-
-
 // Admin
 app.get('/admin', function (req, res) {
 	res.render('admin');
@@ -66,19 +48,41 @@ app.get('/admin', function (req, res) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+
+// Chat render
+
+app.get('/chat', function (req, res) {
+
+  let reqDB = 'SELECT * FROM messages';
+  db.query(reqDB, (err, result) => {
+  	if (err) throw err;
+
+  	// for(let i=0; i < result.length; i++){
+  	// 	result[i].text;
+  	// }
+
+res.render('chat', {
+	smsText: result
+});
+});
+});
+
+
 // Socket Connect
 io.on('connection', function (socket) {
 	console.log('Socket Run...')
 
 	// Send sms
-	socket.on('chat message', function(msg){
+	socket.on('chat message', function(msg, cl){
 
-			let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
-			db.query(sql, (err, result) => {
-				if (err) throw err;
-				console.log(result);
-				console.log('SMS send! YES!!!');
-			})
+		let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
+
+		db.query(sql, (err, result) => {
+			if (err) throw err;
+			console.log(result);
+			console.log('SMS send! YES!!!');
+		})
 
 		io.emit('chat message', msg);
 	});
