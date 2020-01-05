@@ -4,7 +4,7 @@
   "description": "Lessons viewer",
   "main": "app.js",
   "scripts": {
-    "n": "nodemon"
+    "start": "node app"
   },
   "author": "Bred",
   "license": "ISC",
