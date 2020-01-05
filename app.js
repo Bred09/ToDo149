@@ -6,6 +6,7 @@ const path = require('path');
 
 app.set('view engine', 'ejs');
 const mysql = require('mysql');
+const PORT = process.env.PORT || 3000;
 
 
 // Connect to DB
@@ -95,6 +96,6 @@ io.on('connection', function (socket) {
 
 
 // Start server
-http.listen(3000, function() {
-	console.log('Server Run...')
+http.listen(PORT, function() {
+	console.log(`Server Run... [${PORT}]`)
 })
