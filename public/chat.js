@@ -6,9 +6,4 @@ function scroll() {
 }
 window.onload = () => {
 	scroll();
-	// после scrollTo возникнет событие "scroll", так что стрелка автоматически скроется
 };
-
-//   a.addEventListener('scroll', function() {
-//   	arrowTop.hidden = (pageYOffset < document.documentElement.clientHeight);
-// });

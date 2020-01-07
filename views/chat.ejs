@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
 	<title>Чат учеников и преподователей</title>
 
 	<link rel="stylesheet" href="chat.css">
@@ -31,24 +32,24 @@
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="chat.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
 	$(function () {
 		var socket = io();
 
 		$('form').submit((e) => {
-	      e.preventDefault();
-	      socket.emit('chat message', $('.m').val());
-	      $('.m').val('');
-	      return false;
-	    });
+			e.preventDefault();
+			socket.emit('chat message', $('.m').val());
+			$('.m').val('');
+			return false;
+		});
 
-	    socket.on('chat message', function(msg){
-	    	$('.sms').append($('<li>').text(msg));
-	    	scroll();
+		socket.on('chat message', function(msg){
+			$('.sms').append($('<li>').text(msg));
+			scroll();
 	    });
 	  });
 </script>
+<script src="chat.js"></script>
 </body>
 </html>
