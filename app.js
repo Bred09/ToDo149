@@ -50,23 +50,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-
-// Chat render
-
+// Chat
 app.get('/chat', function (req, res) {
+	let reqDB = 'SELECT * FROM messages';
+	db.query(reqDB, (err, result) => {
+		if (err) throw err;
 
-  let reqDB = 'SELECT * FROM messages';
-  db.query(reqDB, (err, result) => {
-  	if (err) throw err;
-
-  	// for(let i=0; i < result.length; i++){
-  	// 	result[i].text;
-  	// }
-
-res.render('chat', {
-	smsText: result
-});
-});
+		res.render('chat', {
+			smsText: result
+		});
+	});
 });
 
 
@@ -81,8 +74,7 @@ io.on('connection', function (socket) {
 
 		db.query(sql, (err, result) => {
 			if (err) throw err;
-			console.log(result);
-			console.log('SMS send! YES!!!');
+			console.log('SMS adding to DB...');
 		})
 
 		io.emit('chat message', msg);

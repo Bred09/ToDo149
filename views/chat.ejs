@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Чат учеников и преподователей</title>
 
 	<link rel="stylesheet" href="chat.css">
@@ -22,7 +23,7 @@
 		<div class="sms">
 			<h3>
 				<% for (var i = 0; i < smsText.length; i++) { %>
-		            <p><%= smsText[i].text %></p>
+		            <p><%= smsText[i].text %></p><br>
 		        <% } %>
 			</h3>
 		</div>
@@ -30,9 +31,9 @@
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="chat.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
-
 	$(function () {
 		var socket = io();
 
@@ -45,6 +46,7 @@
 
 	    socket.on('chat message', function(msg){
 	    	$('.sms').append($('<li>').text(msg));
+	    	scroll();
 	    });
 	  });
 </script>
