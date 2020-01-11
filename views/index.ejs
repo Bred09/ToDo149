@@ -10,7 +10,11 @@
 <body>
 
 	<div class="main">
-		<a href="/admin"><button class="btn-rt">Личный кабинет</button></a>
+
+		<!-- Login box {-->
+			<%- include ("layouts/login.ejs") %>
+		<!-- } -->
+
 		<a href="/chat"><button class="btn-tc">Онлайн чат</button></a>
 		<center>
 			<div class="title">
@@ -140,7 +144,7 @@
 		<a href="/mobile"><button>мобильная версия</button></a>
 	</div>
 
-<script src="script.js"></script>
+<script src="alert.js"></script>
 <script src="date.js"></script>
 </body>
 </html>

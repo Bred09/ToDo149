@@ -2,24 +2,38 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="admin.css">
 	<link rel="stylesheet" href="btn.css">
+	<link rel="stylesheet" href="admin.css">
 
 	<title>Панель администратора</title>
 </head>
 <body>
-
 	<div class="main">
 		<a href="/"><button class="btn-rt">На главную</button></a>
-		<center>
+		<center><div class="shadow"></div>
 			<div class="title">
 				<h1 class="day">День</h1>
 				<p><b class="hours">00:00</b> <span class="date">00.00.00</span></p>
 			</div>
 
+			<form action="">
+
 			<!-- Admin panel -->
 			<%- include ("layouts/admin_panel") %>
+
+			<br>
+			<button class="add" onclick="print();" type="button">
+				<img src="img/print.svg" alt="+" width="35"><span>Напечатать</span>
+			</button>
+			<button class="add" onclick="add();" type="button">
+				<img src="img/add.svg" alt="+" width="35"><span>Добавить таблицу</span>
+			</button>
+			<button class="add" type="submit">
+				<span>Опубликовать</span>
+				<img src="img/send.svg" alt="+" width="35">
+			</button>
 			
+			</form>
 		</center>
 
 
@@ -34,13 +48,44 @@
 
 
 	</div>
+<!-- Modale windows -->
 	<div class="mobile">
+		<br>
 		<p>
 			Ваше устройство не поддерживает полную версию сайта, пожалуйста, перейдите на мобильную
 		</p>
+		<br>
 		<a href="/mobile"><button>мобильная версия</button></a>
 	</div>
 
+	<div class="obsh">
+		<button class="closeBtn" onclick="closeWindow();">x</button>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est modi distinctio, labore numquam consequuntur tenetur cum, magni repellat eveniet reprehenderit nemo fuga maiores perspiciatis eos earum fugit, id mollitia minima? Placeat a est porro quaerat.
+	</div>
+
+<!-- Sockets working { -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+	$(function () {
+		var socket = io();
+
+		$('form').submit((e) => {
+			var data = $('#select-day').val();
+			e.preventDefault();
+			socket.emit('todo', data);
+			return false;
+		});
+
+		socket.on('todo', function(data){
+			$('.to-day').html($('<b>').text(data));
+			scroll();
+	    });
+	  });
+</script>
+<!-- } -->
+
 <script src="date.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>

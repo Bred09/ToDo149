@@ -11,10 +11,14 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to DB
 const db = mysql.createConnection({
-	host     : 'db4free.net',
-	user     : 'rootik',
-	password : 'qweasdzxc',
+	host     : '127.0.0.1',
+	user     : 'root',
+	password : '1599',
 	database : 'todo149'
+	// host     : 'db4free.net',
+	// user     : 'rootik',
+	// password : 'qweasdzxc',
+	// database : 'todo149'
 });
 
 // Connect
@@ -45,6 +49,8 @@ app.get('/admin', function (req, res) {
 	res.render('admin');
 });
 
+
+
 // Use static folder "public"
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -62,13 +68,24 @@ app.get('/chat', function (req, res) {
 	});
 });
 
-
 // Socket Connect
 io.on('connection', function (socket) {
 	console.log('Socket Run...')
 
+	// Info to day
+	socket.on('todo', (data) => {
+		let sql = `UPDATE data SET day = '${data}' WHERE data.id = 1`;
+
+		db.query(sql, (err, result) => {
+			if (err) throw err;
+			console.log('Day changed');
+		});
+
+		io.emit('todo', data);
+	});
+
 	// Send sms
-	socket.on('chat message', function(msg, cl){
+	socket.on('chat message', function(msg){
 
 		let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
 
@@ -79,6 +96,7 @@ io.on('connection', function (socket) {
 
 		io.emit('chat message', msg);
 	});
+
 
 	// Disconnect
 	socket.on('disconnect', function(){

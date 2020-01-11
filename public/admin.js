@@ -1,21 +1,19 @@
-<div class="box">
+var modalWindow = document.querySelector('.obsh');
+function poObsh() {
+	modalWindow.style.display = 'block';
+}
+
+function closeWindow() {
+	modalWindow.style.display = 'none';
+}
+
+var iTbl = `
 	<table border="1" cellspacing="0" class="block">
-		<caption><h1>Расписание на <span class="to-day"></span>
-			<select name="" id="select-day">
-				<option>Выберите день:</option>
-				<option>Понедельник</option>
-				<option>Вторник</option>
-				<option>Среду</option>
-				<option>Четверг</option>
-				<option>Пятницу</option>
-				<option>Субботу</option>
-			</select>
-		</caption>
 		<tr>
 			<th title="Урок">№</th>
 			<th title="Расписание звонков">Расп. звон.</th>
-			<th colspan="2"><input title="Класс" placeholder="класс" /></th>
-			<th class="cab" title="Кабинет"></th>
+			<th><input title="Класс" placeholder="класс" /></th>
+			<th class="cab" title="Кабинет">Каб.</th>
 			<th><input title="Класс" placeholder="класс" /></th>
 			<th class="cab" title="Кабинет">Каб.</th>
 			<th><input title="Класс" placeholder="класс" /></th>
@@ -28,7 +26,7 @@
 			<td>1</td>
 			<td>08:00-09:10</td>
 			<td><input type="text" placeholder="предмет"></td>
-			<td><input class="cab cab-input" type="text" placeholder="каб." title="кабинет"></td>
+			<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
 			<td><input type="text" placeholder="предмет"></td>
 			<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
 			<td><input type="text" placeholder="предмет"></td>
@@ -114,5 +112,13 @@
 			<td><input type="text" placeholder="предмет"></td>
 			<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
 		</tr>
-	</table>
-</div>
+	</table>`
+
+var block = document.querySelector('.add');
+var table = document.querySelector('.box');
+var td = '<td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>';
+var tr = '<th><input></th><th><input></th><th><input></th><th><input></th><th><input></th>';
+
+function add (){
+	table.innerHTML += `<br><table> ${iTbl} </table>`;
+}

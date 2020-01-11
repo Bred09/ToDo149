@@ -1,0 +1,68 @@
+<style>
+.lk-box{
+	z-index: 101;
+	position: fixed;
+	top: 0;
+	right: -100%;
+	width: 265px;
+	height: 100%;
+	background: #2d2d2d;
+	transition: 1s;
+	text-align: right;
+	border-left: 1px solid;
+}
+
+ul{
+	position: absolute;
+	top: calc(50% - 111px);
+	right: 10px;
+}
+li{
+	margin: 10px 0;
+	display: inline-grid;
+}
+li span{
+	margin: 0 5px 5px;
+}
+</style>
+
+<button class="btn-rt btnimg" onclick="login();">
+	<span>Личный кабинет</span>
+	<img src="img/login.svg" alt="->" width="30">
+</button>
+
+<div class="lk-box">
+	<button class="close" onclick="cls();">X</button>
+	<form action="">
+		<ul>
+			<li><span>Логин</span><input type="text" class="login"></li><br>
+			<li><span>Пароль</span><input type="password" class="password"></li><br>
+			<li><button type="button" onclick="signin();">Войти</button></li>
+		</ul>
+	</form>
+</div>
+
+	
+
+<script>
+var box = document.querySelector('.lk-box');
+function login () {
+	box.style.right = '0';
+}
+function cls () {
+	box.style.right = '-100%';
+}
+
+const loginN = 'Nata';
+const password = 'Vlad';
+function signin() {
+	var log = document.querySelector('.login').value;
+	var pass = document.querySelector('.password').value;
+
+	if (pass == password && log == loginN) {
+		location.href = '/admin';
+	} else {
+		alert(`Пароль или логин не верны. Попробуйте ещё раз`)
+	}
+}
+</script>
