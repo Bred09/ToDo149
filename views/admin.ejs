@@ -71,14 +71,14 @@
 		var socket = io();
 
 		$('form').submit((e) => {
-			var data = $('#select-day').val();
+			var dataDay = $('#select-day').val();
 			e.preventDefault();
-			socket.emit('todo', data);
+			socket.emit('todo', dataDay);
 			return false;
 		});
 
-		socket.on('todo', function(data){
-			$('.to-day').html($('<b>').text(data));
+		socket.on('todo', function(dataDay){
+			$('.to-day').html($('<b>').text(dataDay));
 			scroll();
 	    });
 	  });

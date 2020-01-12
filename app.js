@@ -11,14 +11,14 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to DB
 const db = mysql.createConnection({
-	// host     : '127.0.0.1',
-	// user     : 'root',
-	// password : '1599',
-	// database : 'todo149'
-	host     : 'db4free.net',
-	user     : 'rootik',
-	password : 'qweasdzxc',
+	host     : '127.0.0.1',
+	user     : 'root',
+	password : '1599',
 	database : 'todo149'
+	// host     : 'db4free.net',
+	// user     : 'rootik',
+	// password : 'qweasdzxc',
+	// database : 'todo149'
 });
 
 // Connect
@@ -55,7 +55,6 @@ app.get('/admin', function (req, res) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 // Chat
 app.get('/chat', function (req, res) {
 	let reqDB = 'SELECT * FROM messages';
@@ -68,43 +67,15 @@ app.get('/chat', function (req, res) {
 	});
 });
 
+
 // Socket Connect
 io.on('connection', function (socket) {
 	console.log('Socket Run...')
 
 	// Info to day
-	socket.on('todo', (data) => {
-		let sql = `UPDATE data SET day = '${data}' WHERE data.id = 1`;
+	socket.on('todo', (dataDay) => {
 
-		db.query(sql, (err, result) => {
-			if (err) throw err;
-			console.log('Day changed');
-		});
-
-		io.emit('todo', data);
-	});
-
-	// Send sms
-	socket.on('chat message', function(msg){
-
-		let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
-
-		db.query(sql, (err, result) => {
-			if (err) throw err;
-			console.log('SMS adding to DB...');
-		})
-
-		io.emit('chat message', msg);
-	});
-
-
-	// Disconnect
-	socket.on('disconnect', function(){
-		console.log('Socket STOP!');
-	});
-});
-
-
+// Notification
 var sendNotification = function(data) {
   var headers = {
     "Content-Type": "application/json; charset=utf-8",
@@ -138,11 +109,49 @@ var sendNotification = function(data) {
 
 var message = { 
   app_id: "4f74eaf6-6ee9-43a6-a7b1-fccf3f809129",
-  contents: {"en": "Hello! Bred"},
+  contents: {
+  	"en": `Расписание на ${dataDay} уже на сайте`,
+  	"ru": `Расписание на ${dataDay} уже на сайте`
+  },
   included_segments: ["All"]
 };
 
 sendNotification(message);
+
+		// Query to DB
+		let sql = `UPDATE data SET day = '${dataDay}' WHERE data.id = 1`;
+
+		db.query(sql, (err, result) => {
+			if (err) {
+				throw err;
+			} else {
+				console.log('Day changed');
+			}
+		});
+
+		io.emit('todo', dataDay);
+	});
+
+	// Send sms
+	socket.on('chat message', function(msg){
+
+		let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
+
+		db.query(sql, (err, result) => {
+			if (err) throw err;
+			console.log('SMS adding to DB...');
+		})
+
+		io.emit('chat message', msg);
+	});
+
+
+	// Disconnect
+	socket.on('disconnect', function(){
+		console.log('Socket STOP!');
+	});
+});
+
 
 
 // Start server
