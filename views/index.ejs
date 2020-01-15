@@ -35,101 +35,156 @@
 
 
 				<div class="box">
-					<table width="100%" border="1" cellspacing="0" cellpadding="4">
-						<caption><h1>Расписание на завтра</caption>
+<style>
+button span{
+  position: relative;
+  top: -12px;
+  margin: 0 10px;
+}
 
+h1 select{
+  width: 150px;
+  text-align: center;
+  position: relative;
+  bottom: 5px;
+}
+.cab{
+  width: 30px;
+}
+
+input{
+  border: 0;
+  text-align: center;
+}
+
+.box{
+  max-width: 1500px;
+}
+h1, p, table, th{
+  font-weight: 100;
+}
+
+table th,td,caption{
+  padding: 5px 0;
+}
+
+table{
+  border: solid 1px;
+  border-radius: 5px;
+  width: 100%;
+}
+td{
+  text-align: center;
+}
+</style>
+					<table border="1" cellspacing="0" class="block">
+						<caption><h1>Расписание на <span class="to-day">
+							<b><%= day[0]['day'] %></b>
+						</span>
+					</h1>
+						</caption>
 						<tr>
-							<th class="din-din">Расписание звонков</th>
-							<th>5 А</th>
-							<th>5 Б</th>
-							<th>5 В</th>
+							<th title="Урок">№</th>
+							<th title="Расписание звонков">Расп. звон.</th>
+							<th><input title="Класс" placeholder="класс" /></th>
+							<th class="cab" title="Кабинет"></th>
+							<th><input title="Класс" placeholder="класс" /></th>
+							<th class="cab" title="Кабинет">Каб.</th>
+							<th><input title="Класс" placeholder="класс" /></th>
+							<th class="cab" title="Кабинет">Каб.</th>
 						</tr>
 
-						<tr title="Кабинет" onclick="print();"><th>Каб.</th></tr>
+
 
 						<tr>
-							<td>08:30 - 09:10</td>
-							<td title="Русская словестность">Рус.слов</td>
-							<td>Математика</td>
-							<td title="Физическая культура">Физ-ра</td>
-						</tr>
-
-						<tr>
-							<td>09:25-10:05</td>
-							<td title="Всеобщая история">Всеобщ.ист</td>
-							<td title="Русский язык">Рус.яз</td>
-							<td title="Всеобщая история">Всеобщ.ист</td>
-						</tr>
-
-						<tr>
-							<td>Смог, раз</td>
-							<td>5</td>
-							<td>5</td>
-							<td>Всеобщ.история</td>
-						</tr>
-					</table>
-
-					<table width="100%" border="1" cellspacing="0" cellpadding="4">
-						<br>
-
-						<tr>
-							<th class="din-din">Расписание звонков</th>
-							<th>10А</th>
-							<th>10Б</th>
-							<th>10В</th>
-						</tr>
-
-						<tr>
-							<td>08:30 - 09:25</td>
-							<td>Всеобщ.история</td>
-							<td>2</td>
 							<td>1</td>
+							<td>08:00-09:10</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab cab-input" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
 						</tr>
-
+						<tr>
+							<td>2</td>
+							<td>09:25-10:05</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+						</tr>
 						<tr>
 							<td>3</td>
+							<td>10:25-11:05</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>11:25-12:05</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>12:20-13:00</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+						</tr>
+						<tr>
 							<td>6</td>
-							<td>Всеобщ.история</td>
+							<td>13:15-13:55</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+						</tr>
+						<tr>
 							<td>7</td>
+							<td>14:10-14:50</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
 						</tr>
-
 						<tr>
-							<td>Смог, раз</td>
-							<td>5</td>
-							<td>5</td>
-							<td>Всеобщ.история</td>
+							<td>8</td>
+							<td>15:05-15:45</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
 						</tr>
-					</table>
-
-					<table width="100%" border="1" cellspacing="0" cellpadding="4">
-						<br>
-
 						<tr>
-							<th class="din-din">Расписание звонков</th>
-							<th>10А</th>
-							<th>10Б</th>
-							<th>10В</th>
-						</tr>
-
-						<tr>
-							<td>08:30 - 09:25</td>
-							<td>Всеобщ.история</td>
-							<td>2</td>
-							<td>1</td>
-						</tr>
-
-						<tr>
-							<td>5</td>
-							<td>6</td>
-							<td>Всеобщ.история</td>
-							<td><a href="">по общему</a></td>
-						</tr>
-
-						<tr>
-							<td>Смог, раз</td>
-							<td>5</td>
-							<td>5</td>
-							<td>Всеобщ.история</td>
+							<td>9</td>
+							<td>15:55-16:35</td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
+							<td><input type="text" placeholder="предмет"></td>
+							<td><input class="cab" type="text" placeholder="каб." title="кабинет"></td>
 						</tr>
 					</table>
 				</div>

@@ -7,9 +7,9 @@
 	width: 265px;
 	height: 100%;
 	background: #2d2d2d;
-	transition: 1s;
 	text-align: right;
 	border-left: 1px solid;
+	padding: 5px;
 }
 
 ul{
@@ -24,6 +24,13 @@ li{
 li span{
 	margin: 0 5px 5px;
 }
+
+.lk-box .close{
+	padding-left: 16.5px;
+	padding-right: 16.5px;
+	border-radius: 50px;
+	font-size: 20px;
+}
 </style>
 
 <button class="btn-rt btnimg" onclick="login();">
@@ -32,7 +39,7 @@ li span{
 </button>
 
 <div class="lk-box">
-	<button class="close" onclick="cls();">X</button>
+	<button class="close" onclick="cls();">x</button>
 	<form action="">
 		<ul>
 			<li><span>Логин</span><input type="text" class="login"></li><br>
@@ -48,9 +55,11 @@ li span{
 var box = document.querySelector('.lk-box');
 function login () {
 	box.style.right = '0';
+	box.style.transition = '1s';
 }
 function cls () {
 	box.style.right = '-100%';
+	box.style.transition = '.5s';
 }
 
 const loginN = 'Nata';

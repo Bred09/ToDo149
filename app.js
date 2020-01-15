@@ -4,6 +4,11 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const path = require('path');
 
+// Exports modules
+const alert = require('./notification.js');
+const localDB = require('./localDB.js');
+const remoteDB = require('./remoteDB.js');
+
 app.set('view engine', 'ejs');
 const mysql = require('mysql');
 const PORT = process.env.PORT || 3000;
@@ -11,15 +16,10 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to DB
 const db = mysql.createConnection({
-	// host     : '127.0.0.1',
-	// user     : 'root',
-	// password : '1599',
-	// database : 'todo149'
-	
-	host     : 'db4free.net',
-	user     : 'rootik',
-	password : 'qweasdzxc',
-	database : 'todo149'
+	host     : localDB.host,
+	user     : localDB.user,
+	password : localDB.password,
+	database : localDB.database
 });
 
 // Connect
@@ -33,9 +33,16 @@ db.connect((err) => {
 
 // Views
 // Main page
+let reqDB = 'SELECT day FROM data  WHERE id = 1;';
+
 app.get('/', function (req, res) {
-	res.render('index');
+	db.query(reqDB, (err, result) => {
+		res.render('index', {
+			day: result
+		});
+	});
 });
+
 // Admin
 app.get('/lk', function (req, res) {
 	res.render('lk');
@@ -67,14 +74,6 @@ app.get('/chat', function (req, res) {
 		});
 	});
 });
-
-
-// Socket Connect
-io.on('connection', function (socket) {
-	console.log('Socket Run...')
-
-	// Info to day
-	socket.on('todo', (dataDay) => {
 
 // Notification
 var sendNotification = function(data) {
@@ -108,15 +107,26 @@ var sendNotification = function(data) {
   req.end();
 };
 
-var message = { 
+var message = {
   app_id: "4f74eaf6-6ee9-43a6-a7b1-fccf3f809129",
   contents: {
-  	"en": `Расписание на ${dataDay} уже на сайте`,
-  	"ru": `Расписание на ${dataDay} уже на сайте`
+  	"en": `Расписание на ДЕНЬ уже на сайте`,
+  	"ru": `Расписание на ДЕНЬ уже на сайте`
   },
-  included_segments: ["All"]
+  included_segments: ["All"],
+  headings: {
+  	"en": "Расписание на завтра",
+  	"ru": "Расписание на завтра"
+  },
+
 };
 
+// Socket Connect
+io.on('connection', function (socket) {
+	console.log('Socket Run...')
+
+	// Info to day
+	socket.on('todo', (dataDay) => {
 sendNotification(message);
 
 		// Query to DB
@@ -157,5 +167,5 @@ sendNotification(message);
 
 // Start server
 http.listen(PORT, function() {
-	console.log(`Server Run... [${PORT}]`)
+	console.log(`Server Run on port: ${PORT}`)
 })

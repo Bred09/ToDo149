@@ -1,3 +1,8 @@
+table caption h1{
+  font-family: Roboto,sans-serif;
+  font-weight: 100;
+}
+
 .btnimg span{
   position: relative;
   top: -9px;
@@ -12,8 +17,6 @@
 }
 
 .main{
-  font-family: Roboto,sans-serif,helvetica;
-  
 	background: rgba(0,0,0,.7);
   color: #fff;
   
@@ -84,5 +87,7 @@ body{
   background-attachment: fixed;
   background-size: cover;
   background-color: #464646;
+
+  font-family: helvetica;
 }
 *{margin:0;padding:0;}

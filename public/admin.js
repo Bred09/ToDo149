@@ -116,9 +116,6 @@ var iTbl = `
 
 var block = document.querySelector('.add');
 var table = document.querySelector('.box');
-var td = '<td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>';
-var tr = '<th><input></th><th><input></th><th><input></th><th><input></th><th><input></th>';
-
 function add (){
 	table.innerHTML += `<br><table> ${iTbl} </table>`;
 }
