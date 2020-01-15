@@ -16,10 +16,10 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to DB
 const db = mysql.createConnection({
-	host     : localDB.host,
-	user     : localDB.user,
-	password : localDB.password,
-	database : localDB.database
+	host     : remoteDB.host,
+	user     : remoteDB.user,
+	password : remoteDB.password,
+	database : remoteDB.database
 });
 
 // Connect
