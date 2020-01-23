@@ -71,16 +71,10 @@
 		var socket = io();
 
 		$('form').submit((e) => {
-			var dataDay = $('#select-day').val();
+			var dataDay = '99';
 			e.preventDefault();
 			socket.emit('todo', dataDay);
-			return false;
 		});
-
-		socket.on('todo', function(dataDay){
-			$('.to-day').html($('<b>').text(dataDay));
-			scroll();
-	    });
 	  });
 </script>
 <!-- } -->

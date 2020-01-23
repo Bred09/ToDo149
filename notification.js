@@ -3,6 +3,4 @@ const root = path.join.bind(this, __dirname);
 
 
 
-
-var sendNotification = 'Gello';
-module.exports = sendNotification;
+module.exports = {sendNotification: sendNotification(message)}

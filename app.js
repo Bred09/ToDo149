@@ -5,9 +5,7 @@ const io = require('socket.io')(http);
 const path = require('path');
 
 // Exports modules
-const alert = require('./notification.js');
-const localDB = require('./localDB.js');
-const remoteDB = require('./remoteDB.js');
+const configDB = require('./configDB.js');
 
 app.set('view engine', 'ejs');
 const mysql = require('mysql');
@@ -16,10 +14,10 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to DB
 const db = mysql.createConnection({
-	host     : remoteDB.host,
-	user     : remoteDB.user,
-	password : remoteDB.password,
-	database : remoteDB.database
+	host     : configDB.host,
+	user     : configDB.user,
+	password : configDB.password,
+	database : configDB.database
 });
 
 // Connect
@@ -33,13 +31,16 @@ db.connect((err) => {
 
 // Views
 // Main page
-let reqDB = 'SELECT day FROM data  WHERE id = 1;';
+// let reqDB = 'SELECT day FROM data  WHERE id = 1;';
+let reqDB = 'SELECT * FROM lessons;';
 
 app.get('/', function (req, res) {
 	db.query(reqDB, (err, result) => {
 		res.render('index', {
-			day: result
+			data: result
 		});
+
+		// console.log(result);
 	});
 });
 
@@ -74,6 +75,50 @@ app.get('/chat', function (req, res) {
 		});
 	});
 });
+
+
+// Socket Connect
+io.on('connection', (socket) => {
+	console.log('Socket Run...')
+
+	// Info to day
+	socket.on('todo', (dataDay) => {
+		
+		// Query to DB
+		let sql = `UPDATE dataDB SET body = '${dataDay}' WHERE dataDB.id = 1`;
+
+		db.query(sql, (err, result) => {
+			if (err) {
+				throw err;
+			} else {
+				// sendNotification(message);
+				console.log('Day changed');
+			}
+		});
+
+		io.emit('todo1', dataDay);
+	});
+
+	// Send sms
+	socket.on('chat message', (msg) => {
+
+		let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
+
+		db.query(sql, (err, result) => {
+			if (err) throw err;
+			console.log('SMS adding to DB...');
+		})
+
+		io.emit('chat message', msg);
+	});
+
+
+	// Disconnect
+	socket.on('disconnect', () => {
+		console.log('Socket STOP!');
+	});
+});
+
 
 // Notification
 var sendNotification = function(data) {
@@ -110,8 +155,8 @@ var sendNotification = function(data) {
 var message = {
   app_id: "4f74eaf6-6ee9-43a6-a7b1-fccf3f809129",
   contents: {
-  	"en": `Расписание на ДЕНЬ уже на сайте`,
-  	"ru": `Расписание на ДЕНЬ уже на сайте`
+  	"en": `Расписание на DAY уже на сайте`,
+  	"ru": `Расписание на DAY уже на сайте`
   },
   included_segments: ["All"],
   headings: {
@@ -121,51 +166,7 @@ var message = {
 
 };
 
-// Socket Connect
-io.on('connection', function (socket) {
-	console.log('Socket Run...')
-
-	// Info to day
-	socket.on('todo', (dataDay) => {
-sendNotification(message);
-
-		// Query to DB
-		let sql = `UPDATE data SET day = '${dataDay}' WHERE data.id = 1`;
-
-		db.query(sql, (err, result) => {
-			if (err) {
-				throw err;
-			} else {
-				console.log('Day changed');
-			}
-		});
-
-		io.emit('todo', dataDay);
-	});
-
-	// Send sms
-	socket.on('chat message', function(msg){
-
-		let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
-
-		db.query(sql, (err, result) => {
-			if (err) throw err;
-			console.log('SMS adding to DB...');
-		})
-
-		io.emit('chat message', msg);
-	});
-
-
-	// Disconnect
-	socket.on('disconnect', function(){
-		console.log('Socket STOP!');
-	});
-});
-
-
-
 // Start server
-http.listen(PORT, function() {
+http.listen(PORT, () => {
 	console.log(`Server Run on port: ${PORT}`)
 })
