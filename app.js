@@ -2,17 +2,24 @@ const app = require('express')();
 const express = require('express');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+
+var fs = require("fs");
 const path = require('path');
 
 // Exports modules
 const configDB = require('./configDB.js');
+	// JSON DB
+	var dataJSON = fs.readFileSync("data.json");
+	const data = JSON.parse(dataJSON);
 
+// Use express
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 const mysql = require('mysql');
 const PORT = process.env.PORT || 3000;
 
 
-// Connect to DB
+// Config data to DB
 const db = mysql.createConnection({
 	host     : configDB.host,
 	user     : configDB.user,
@@ -20,27 +27,17 @@ const db = mysql.createConnection({
 	database : configDB.database
 });
 
-// Connect
-db.connect((err) => {
-	if (err) {
-		throw err;
-	}
-	console.log('MySQL CONNECT...');
-});
+
 
 
 // Views
 // Main page
 // let reqDB = 'SELECT day FROM data  WHERE id = 1;';
-let reqDB = 'SELECT * FROM lessons;';
+// let reqDB = 'SELECT * FROM lessons;';
 
 app.get('/', function (req, res) {
-	db.query(reqDB, (err, result) => {
-		res.render('index', {
-			data: result
-		});
-
-		// console.log(result);
+	res.render('index', {
+		data : data
 	});
 });
 
@@ -59,13 +56,16 @@ app.get('/admin', function (req, res) {
 });
 
 
-
-// Use static folder "public"
-app.use(express.static(path.join(__dirname, 'public')));
-
-
+// Connect to DB
+db.connect((err) => {
+	if (err) {
+		throw err;
+	}
+	console.log('MySQL CONNECT...');
+});
 // Chat
 app.get('/chat', function (req, res) {
+
 	let reqDB = 'SELECT * FROM messages';
 	db.query(reqDB, (err, result) => {
 		if (err) throw err;
@@ -76,27 +76,20 @@ app.get('/chat', function (req, res) {
 	});
 });
 
-
 // Socket Connect
 io.on('connection', (socket) => {
 	console.log('Socket Run...')
 
 	// Info to day
-	socket.on('todo', (dataDay) => {
-		
-		// Query to DB
-		let sql = `UPDATE dataDB SET body = '${dataDay}' WHERE dataDB.id = 1`;
+	socket.on('dataPush', (dataAdmin) => {
 
-		db.query(sql, (err, result) => {
-			if (err) {
-				throw err;
-			} else {
-				// sendNotification(message);
-				console.log('Day changed');
-			}
-		});
+// Query to DB
+fs.writeFileSync('data.json', JSON.stringify(dataAdmin));
 
-		io.emit('todo1', dataDay);
+		// sendNotification(message);
+			console.log('Data writing to DB');
+
+		io.emit('dataPull', dataAdmin);
 	});
 
 	// Send sms

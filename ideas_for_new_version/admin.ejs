@@ -67,12 +67,15 @@ td{
 				<div class="table"></div>
 
 
-			
+			<input type="file">
 
 
 			<br>
-			<button class="upload add" type="button">
-				<img src="img/upload.svg" alt="+" width="35"><span>Загрузить</span><input type="file">
+			<button class="add" onclick="print();" type="button">
+				<img src="img/print.svg" alt="+" width="35"><span>Напечатать</span>
+			</button>
+			<button class="add" onclick="add();" type="button">
+				<img src="img/add.svg" alt="+" width="35"><span>Добавить таблицу</span>
 			</button>
 			<button class="add" type="submit">
 				<span>Опубликовать</span>
@@ -111,14 +114,16 @@ td{
 
 <!-- Sockets working { -->
 <script>
-const btnUp = document.querySelector('input');
-btnUp.addEventListener('change', async () => {
-const content = await btnUp.files[0].text();
+  const input = document.querySelector('input');
+  input.addEventListener('change', async () => {
+    const content = await input.files[0].text();
 
-var tab = document.querySelector('.table').innerHTML = content;
-document.querySelector('.table style').remove();
-var tab1 = document.querySelector('.table table');
-})
+    document.querySelector('.table').innerHTML = content;
+    document.querySelector('.table style').remove();
+    document.querySelector('.table table').style.display = 'block';
+
+    console.log(content)
+  })
 </script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -127,10 +132,9 @@ var tab1 = document.querySelector('.table table');
 		var socket = io();
 
 		$('form').submit((e) => {
-			var data = document.querySelector('.table table').innerHTML;
-			console.log(data)
+			var dataDay = '99';
 			e.preventDefault();
-			socket.emit('dataPush', data);
+			socket.emit('todo', dataDay);
 		});
 	  });
 </script>
