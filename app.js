@@ -8,10 +8,7 @@ const path = require('path');
 
 // Exports modules
 const configDB = require('./configDB.js');
-	// JSON DB
-	var dataJSON = fs.readFileSync("data.json");
-	const data = JSON.parse(dataJSON);
-
+	
 // Use express
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -36,6 +33,9 @@ const db = mysql.createConnection({
 // let reqDB = 'SELECT * FROM lessons;';
 
 app.get('/', function (req, res) {
+// JSON DB
+	var dataJSON = fs.readFileSync("data.json");
+	const data = JSON.parse(dataJSON);
 	res.render('index', {
 		data : data
 	});
@@ -82,13 +82,12 @@ io.on('connection', (socket) => {
 
 	// Info to day
 	socket.on('dataPush', (dataAdmin) => {
+		sendNotification(message);
+		// Query to DB
+		fs.writeFileSync('data.json', JSON.stringify(dataAdmin));
 
-// Query to DB
-fs.writeFileSync('data.json', JSON.stringify(dataAdmin));
-
-		// sendNotification(message);
-			console.log('Data writing to DB');
-
+		console.log('Data writing to DB');
+		var dataIndex = fs.readFileSync('data.json');
 		io.emit('dataPull', dataAdmin);
 	});
 
@@ -111,7 +110,6 @@ fs.writeFileSync('data.json', JSON.stringify(dataAdmin));
 		console.log('Socket STOP!');
 	});
 });
-
 
 // Notification
 var sendNotification = function(data) {

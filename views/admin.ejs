@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="/img/favicon.svg" type="image/svg">
 	<link rel="stylesheet" href="btn.css">
 	<link rel="stylesheet" href="admin.css">
 
@@ -61,27 +62,47 @@ td{
 				<p><b class="hours">00:00</b> <span class="date">00.00.00</span></p>
 			</div>
 			<h1>Загрузите таблицу</h1>
-
+			<br>
+			<hr>
+			<br>
 			<form action="">
 
-				<div class="table"></div>
+				<div class="table">
+					<p><i>таблица</i></p>
+				</div>
 
 
 			
 
 
 			<br>
+			<hr>
+			<br>
+<style>
+.upload{
+	padding: 10px 0;
+}
+#btn{
+	padding: 32px 48px 12px 48px;
+}
+#btn:hover{
+	cursor: pointer;
+}
+</style>
 			<button class="upload add" type="button">
-				<img src="img/upload.svg" alt="+" width="35"><span>Загрузить</span><input type="file">
+				<label for="up" id="btn">
+					<img src="img/upload.svg" alt="+" width="35"><span>Загрузить</span>
+<input id="up" required style="display:none;" type="file">
+				</label>
 			</button>
+
 			<button class="add" type="submit">
 				<span>Опубликовать</span>
 				<img src="img/send.svg" alt="+" width="35">
 			</button>
-			
+
 			</form>
 		</center>
-
 
 
 			<div class="footer">
@@ -114,10 +135,14 @@ td{
 const btnUp = document.querySelector('input');
 btnUp.addEventListener('change', async () => {
 const content = await btnUp.files[0].text();
+console.log(content)
 
 var tab = document.querySelector('.table').innerHTML = content;
+
+// FILTERS {
 document.querySelector('.table style').remove();
-var tab1 = document.querySelector('.table table');
+document.querySelector('.table meta').remove();
+// }
 })
 </script>
 <script src="/socket.io/socket.io.js"></script>
@@ -127,7 +152,7 @@ var tab1 = document.querySelector('.table table');
 		var socket = io();
 
 		$('form').submit((e) => {
-			var data = document.querySelector('.table table').innerHTML;
+			var data = document.querySelector('.table').innerHTML;
 			console.log(data)
 			e.preventDefault();
 			socket.emit('dataPush', data);
@@ -138,5 +163,6 @@ var tab1 = document.querySelector('.table table');
 
 <script src="date.js"></script>
 <script src="admin.js"></script>
+<script src="alert.js"></script>
 </body>
 </html>

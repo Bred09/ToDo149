@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="/img/favicon.svg" type="image/svg">
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="btn.css">
+	<link rel="stylesheet" href="table.css">
 
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
@@ -34,7 +36,12 @@
 
 
 <!-- Tadble { -->
-<%- include ('layouts/table.ejs') %>
+<caption>
+	<h1>Расписание на <span class="to-day">
+		<b></b></span>
+	</h1>
+</caption>
+<div class="box"><table><%- data %></table></div>
 <!-- } -->
 		</center>
 
@@ -65,11 +72,13 @@
 		var socket = io();
 
 		socket.on('dataPull', function(data){
-			console.log(data)
 			$('.box').html(data);
-			scroll();
+			console.log(data)
 	    });
 	  });
+
+	// var a = ["Hello, world!", 2, 34];
+	// a.serialize(); // <-- Обратить внимание!
 </script>
 <!-- } -->
 <script src="alert.js"></script>

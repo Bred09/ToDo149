@@ -1,0 +1,40 @@
+button span{
+  position: relative;
+  top: -12px;
+  margin: 0 10px;
+}
+
+h1 select{
+  width: 150px;
+  text-align: center;
+  position: relative;
+  bottom: 5px;
+}
+.cab{
+  width: 30px;
+}
+
+table input{
+  border: 0;
+  text-align: center;
+}
+
+.box{
+  max-width: 1500px;
+}
+h1, p, table, th{
+  font-weight: 100;
+}
+
+table th,td,caption{
+  padding: 5px 0;
+}
+
+table{
+  border: solid 1px;
+  border-radius: 5px;
+  width: 100%;
+}
+td{
+  text-align: center;
+}

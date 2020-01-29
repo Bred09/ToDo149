@@ -12,7 +12,7 @@ function accept (argument) {
         alert('Ваш браузер не поддерживает уведомления');
     }
     else if (Notification.permission === 'granted') {
-        setTimeout(push, 5000);
+        setTimeout(push, 0);
     }
     else if (Notification.permission !== 'denied') {
         Notification.requestPermission (function (permission) {
@@ -20,7 +20,7 @@ function accept (argument) {
                 Notification.permission = permission;
             }
             if (permission === 'granted') {
-                setTimeout(push, 5000);
+                setTimeout(push, 0);
             }
         })
     }
