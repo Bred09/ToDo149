@@ -97,7 +97,7 @@ td{
   left: calc(50% - 300px)
 }
 
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 700px){
   .main{
     display: none;
   }

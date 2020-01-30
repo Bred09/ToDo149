@@ -7,9 +7,13 @@ a:hover{
 }
 
 .btn-tc{
-  position: absolute;
-  top: 5px;
-  left: calc(50% - 72px);
+  position: fixed;
+  top: calc(50% - 15px);
+  right: -80px;
+  transform: rotate(-90deg);
+}
+.btn-tc span{
+  margin-right: 10px;
 }
 .btn-rt{
   position: absolute;

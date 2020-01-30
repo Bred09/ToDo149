@@ -21,13 +21,29 @@
 </head>
 <body><div class="shadow"></div>
 
+<style>
+.logo{
+	position: absolute;
+	left: calc(50% - 75px);
+	border: solid 1px #3a9a3b;
+	padding: 25px 0px;
+	border-radius: 100px;
+}
+.logo img{
+	width: 150px;
+}
+</style>
+<div class="logo">
+	<img src="/img/favicon.svg" alt="logo">
+</div>
+
 	<div class="main">
 
 		<!-- Login box {-->
 			<%- include ("layouts/login.ejs") %>
 		<!-- } -->
 
-		<a href="/chat"><button class="btn-tc">Онлайн чат</button></a>
+		<a href="/chat"><button class="btn-tc"><span>Онлайн чат</span><img src="/img/chat.svg" alt="O&O" width="40"></button></a>
 		<center>
 			<div class="title">
 				<h1 class="day">День</h1>
@@ -36,11 +52,6 @@
 
 
 <!-- Tadble { -->
-<caption>
-	<h1>Расписание на <span class="to-day">
-		<b></b></span>
-	</h1>
-</caption>
 <div class="box"><table><%- data %></table></div>
 <!-- } -->
 		</center>

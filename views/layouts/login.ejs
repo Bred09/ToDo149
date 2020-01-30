@@ -62,14 +62,15 @@ function cls () {
 	box.style.transition = '.5s';
 }
 
-const loginN = 'Nata';
-const password = 'Vlad';
+const loginN = 'Admin';
+const password = 'admin';
 function signin() {
 	var log = document.querySelector('.login').value;
 	var pass = document.querySelector('.password').value;
 
 	if (pass == password && log == loginN) {
 		location.href = '/admin';
+		
 	} else {
 		alert(`Пароль или логин не верны. Попробуйте ещё раз`)
 	}

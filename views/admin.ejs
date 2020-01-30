@@ -50,9 +50,6 @@ table{
 td{
   text-align: center;
 }
-.table{
-	display: ;
-}
 </style>
 	<div class="main">
 		<a href="/"><button class="btn-rt">На главную</button></a>
@@ -61,20 +58,22 @@ td{
 				<h1 class="day">День</h1>
 				<p><b class="hours">00:00</b> <span class="date">00.00.00</span></p>
 			</div>
-			<h1>Загрузите таблицу</h1>
+			<h1 class="status">Загрузите таблицу</h1>
 			<br>
 			<hr>
+			<br>
 			<br>
 			<form action="">
 
 				<div class="table">
-					<p><i>таблица</i></p>
+					<p><i style="color: gray;">* таблица *</i></p>
 				</div>
 
 
 			
 
 
+			<br>
 			<br>
 			<hr>
 			<br>
@@ -133,16 +132,25 @@ td{
 <!-- Sockets working { -->
 <script>
 const btnUp = document.querySelector('input');
+const statusTitle = document.querySelector('.status');
+btnUp.onclick = () => {
+	statusTitle.innerHTML = 'Загрузка...';
+};
 btnUp.addEventListener('change', async () => {
 const content = await btnUp.files[0].text();
 console.log(content)
 
 var tab = document.querySelector('.table').innerHTML = content;
 
+statusTitle.innerHTML = 'Таблица загружена';
+
 // FILTERS {
 document.querySelector('.table style').remove();
 document.querySelector('.table meta').remove();
+document.querySelector('.table table').style.border = '1';
+document.querySelector('.table meta').remove();
 // }
+
 })
 </script>
 <script src="/socket.io/socket.io.js"></script>
@@ -156,6 +164,7 @@ document.querySelector('.table meta').remove();
 			console.log(data)
 			e.preventDefault();
 			socket.emit('dataPush', data);
+			statusTitle.innerHTML = 'Успешно!';
 		});
 	  });
 </script>
