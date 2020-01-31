@@ -12,7 +12,8 @@ h1{
   font-size: 14px;
 }
 
-.title{
+.title *{
+  margin: 0;
   text-align: left;
 }
 
