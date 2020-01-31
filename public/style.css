@@ -47,21 +47,6 @@ h1, p, table, th{
   font-size: 12px;
 }
 
-table th,td,caption{
-  padding: 5px 0;
-}
-
-table{
-  border: solid 1px;
-  border-radius: 5px;
-}
-td{
-  text-align: center;
-}
-.din-din{
-  width: 200px;
-}
-
 .mobile{
   display: none;
   
@@ -91,4 +76,4 @@ body{
 
   font-family: helvetica;
 }
-*{margin:0;padding:0;}
+*{padding:0;}

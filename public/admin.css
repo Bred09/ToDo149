@@ -47,9 +47,6 @@ center{
 .box{
   max-width: 1500px;
 }
-h1, p, table, th{
-  font-weight: 100;
-}
 
 .footer p{
   border-top: solid 1px #9d9d9d;
@@ -58,22 +55,6 @@ h1, p, table, th{
   font-size: 12px;
 }
 .footer{
-}
-
-table th,td,caption{
-  padding: 5px 0;
-}
-
-table{
-  border: solid 1px;
-  border-radius: 5px;
-  width: 100%;
-}
-td{
-  text-align: center;
-}
-.din-din{
-  width: 200px;
 }
 
 .mobile{
@@ -115,4 +96,4 @@ body{
   background-color: #464646;
   overflow-x: hidden;
 }
-*{margin:0;padding:0;}
+*{margin:8;padding:0;}

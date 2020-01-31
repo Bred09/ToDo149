@@ -33,7 +33,7 @@
 	width: 150px;
 }
 </style>
-<div class="logo">
+<div class="logo" title="Муниципальное бюджетное общеобразовательное учреждение средняя общеобразовательная школа № 149">
 	<img src="/img/favicon.svg" alt="logo">
 </div>
 
@@ -52,7 +52,7 @@
 
 
 <!-- Tadble { -->
-<div class="box"><table><%- data %></table></div>
+<div class="box"><%- data %></div>
 <!-- } -->
 		</center>
 
@@ -75,6 +75,20 @@
 		<a href="/mobile"><button>мобильная версия</button></a>
 	</div>
 
+
+<script>
+function newTable(){
+var box = document.querySelector('table');
+	box.style.boxShadow = '0 0 100px #fff';
+	setTimeout(boxShadowNone, 1000);
+}
+function boxShadowNone(){
+var box = document.querySelector('table');
+	box.style.transition = '3s';
+	box.style.boxShadow = 'none';
+}
+</script>
+
 <!-- Sockets working { -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -84,6 +98,7 @@
 
 		socket.on('dataPull', function(data){
 			$('.box').html(data);
+			newTable();
 			console.log(data)
 	    });
 	  });
