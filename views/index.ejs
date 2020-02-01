@@ -79,7 +79,7 @@ let stop = true
 
 function newTable(){
 	if(!stop) return false;
-var box = document.querySelectorAll('table')[0];
+var box = document.querySelector('.box');
 var title = document.querySelector('head title');
 	box.style.boxShadow = '0 0 90px #fff';
 	title.innerHTML = 'Внимание!';
@@ -88,7 +88,7 @@ var title = document.querySelector('head title');
 function boxShadowNone(){
 	if(!stop) return false;
 var title = document.querySelector('head title');
-var box = document.querySelectorAll('table')[0];
+var box = document.querySelector('.box');
 	box.style.transition = '3s';
 	box.style.boxShadow = 'none';
 	title.innerHTML = 'Вышло расписание!';
@@ -112,6 +112,7 @@ var box = document.querySelectorAll('table')[0];
 
 		socket.on('dataPull', function(data){
 			$('.box').html(data);
+			stop = true;
 			newTable();
 			console.log(data)
 	    });
