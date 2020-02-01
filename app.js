@@ -80,15 +80,15 @@ app.get('/chat', function (req, res) {
 io.on('connection', (socket) => {
 	console.log('Socket Run...')
 
-	// Info to day
+	// ToDo ZONE
 	socket.on('dataPush', (dataAdmin) => {
-		sendNotification(message);
 		// Query to DB
 		fs.writeFileSync('data.json', JSON.stringify(dataAdmin));
 
 		console.log('Data writing to DB');
 		var dataIndex = fs.readFileSync('data.json');
 		io.emit('dataPull', dataAdmin);
+		sendNotification(message);
 	});
 
 	// Send sms
