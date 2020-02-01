@@ -22,9 +22,6 @@ table input{
 .box{
   max-width: 1500px;
 }
-h1, p, table, th{
-  font-weight: 100;
-}
 
 table{
   border-radius: 5px;

@@ -1,0 +1,55 @@
+<style>
+.title *{
+  margin: 0;
+  text-align: left;
+}
+.day{
+  font-family: sans-serif;
+  font-weight: 100;
+}
+</style>
+
+<div class="title">
+	<h1 class="day">День</h1>
+	<p><b><b class="hours">00:00</b></b> <span class="date">00.00.00</span></p>
+</div>
+
+<script>
+// Week day
+function getWeekDay(date) {
+	let days = [
+		'Воскресенье',
+		'Понедельник',
+		'Вторник',
+		'Среда',
+		'Четверг',
+		'Пятница',
+		'Суббота'
+	];
+
+	return days[date.getDay()];
+}
+
+let date = new Date();
+
+var day = document.querySelector('.day')
+day.innerHTML = getWeekDay(date);
+
+// Date and time
+var h = document.querySelector('.hours');
+h.innerHTML = date.toLocaleTimeString();
+
+var d = document.querySelector('.date');
+d.innerHTML = date.toLocaleDateString();
+
+function f1(){
+	var date = new Date();
+	h.innerHTML = date.toLocaleTimeString();
+
+	d.innerHTML = date.toLocaleDateString();
+
+	day.innerHTML = getWeekDay(date);
+}
+
+setInterval(f1, 1000);
+</script>

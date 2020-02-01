@@ -10,55 +10,12 @@
 	<title>Панель администратора</title>
 </head>
 <body>
-<style>
-button span{
-  position: relative;
-  top: -12px;
-  margin: 0 10px;
-}
-
-h1 select{
-  width: 150px;
-  text-align: center;
-  position: relative;
-  bottom: 5px;
-}
-.cab{
-  width: 30px;
-}
-
-table input{
-  border: 0;
-  text-align: center;
-}
-
-.box{
-  max-width: 1500px;
-}
-h1, p, table, th{
-  font-weight: 100;
-}
-
-table th,td,caption{
-  padding: 5px 0;
-}
-
-table{
-  border: solid 1px;
-  border-radius: 5px;
-  width: 100%;
-}
-td{
-  text-align: center;
-}
-</style>
 	<div class="main">
 		<a href="/"><button class="btn-rt">На главную</button></a>
 		<center><div class="shadow"></div>
-			<div class="title">
-				<h1 class="day">День</h1>
-				<p><b class="hours">00:00</b> <span class="date">00.00.00</span></p>
-			</div>
+<!-- Date { -->
+<%- include ("layouts/date.ejs") %>
+<!-- } -->
 			<h1 class="status">Загрузите таблицу</h1>
 			<br>
 			<hr>

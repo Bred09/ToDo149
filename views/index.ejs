@@ -17,7 +17,7 @@
   });
 </script>
 
-	<title>Расписание на сегодня</title>
+	<title>Расписание школы №149</title>
 </head>
 <body><div class="shadow"></div>
 
@@ -45,13 +45,12 @@
 
 		<a href="/chat"><button class="btn-tc"><span>Онлайн чат</span><img src="/img/chat.svg" alt="O&O" width="40"></button></a>
 		<center>
-			<div class="title">
-				<h1 class="day">День</h1>
-				<p><b class="hours">00:00</b> <span class="date">00.00.00</span></p>
-			</div>
+		<!-- Date { -->
+		<%- include ("layouts/date.ejs") %>
+		<!-- } -->
 
 
-<!-- Tadble { -->
+<!-- Table { -->
 <div class="box"><%- data %></div>
 <!-- } -->
 		</center>
@@ -75,16 +74,33 @@
 
 
 <script>
+// Local Notification ZONE {
+let stop = true
+
 function newTable(){
-var box = document.querySelector('table');
-	box.style.boxShadow = '0 0 100px #fff';
+	if(!stop) return false;
+var box = document.querySelectorAll('table')[0];
+var title = document.querySelector('head title');
+	box.style.boxShadow = '0 0 90px #fff';
+	title.innerHTML = 'Внимание!';
 	setTimeout(boxShadowNone, 1000);
 }
 function boxShadowNone(){
-var box = document.querySelector('table');
+	if(!stop) return false;
+var title = document.querySelector('head title');
+var box = document.querySelectorAll('table')[0];
 	box.style.transition = '3s';
 	box.style.boxShadow = 'none';
+	title.innerHTML = 'Вышло расписание!';
+	setTimeout(newTable, 1000);
+	document.onmouseover = () => {
+		stop = false;
+		box.style.boxShadow = 'none';
+		title.innerHTML = 'Расписание школы №149';
+	}
 }
+
+// }
 </script>
 
 <!-- Sockets working { -->
@@ -105,6 +121,5 @@ var box = document.querySelector('table');
 	// a.serialize(); // <-- Обратить внимание!
 </script>
 <!-- } -->
-<script src="date.js"></script>
 </body>
 </html>
