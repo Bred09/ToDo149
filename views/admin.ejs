@@ -116,9 +116,12 @@ document.querySelector('.table meta').remove();
 		var socket = io();
 
 		$('form').submit((e) => {
-			var data = document.querySelector('.table').innerHTML;
-			console.log(data)
 			e.preventDefault();
+			var data = {
+				one: document.querySelector('.table').innerHTML,
+				two: 'Понедельник'
+			};
+			console.log(data)
 			socket.emit('dataPush', data);
 			statusTitle.innerHTML = 'Успешно!';
 		});

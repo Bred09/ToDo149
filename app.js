@@ -77,38 +77,45 @@ app.get('/chat', function (req, res) {
 });
 
 // Socket Connect
+// I THERE
+let globalDataAdmin = 'завтра';
 io.on('connection', (socket) => {
-	console.log('Socket Run...')
+  console.log('Socket Run...')
 
-	// ToDo ZONE
-	socket.on('dataPush', (dataAdmin) => {
-		// Query to DB
-		fs.writeFileSync('data.json', JSON.stringify(dataAdmin));
+  // ToDo ZONE
+  socket.on('dataPush', (dataAdmin) => {
+    // Query to DB
+    fs.writeFileSync('data.json', JSON.stringify(dataAdmin.one));
 
-		console.log('Data writing to DB');
-		var dataIndex = fs.readFileSync('data.json');
-		io.emit('dataPull', dataAdmin);
-		sendNotification(message);
-	});
+    console.log('Data writing to DB');
+    var dataIndex = fs.readFileSync('data.json');
+    io.emit('dataPull', dataAdmin.one);
+    sendNotification(message);
 
-	// Send sms
-	socket.on('chat message', (msg) => {
+    // I THERE
+    globalDataAdmin = dataAdmin.two;
+  });
 
-		let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
+  // Send sms
+  return function returnDay(){
+    socket.on('chat message', (msg) => {
 
-		db.query(sql, (err, result) => {
-			if (err) throw err;
-			console.log('SMS adding to DB...');
-		})
+      let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
 
-		io.emit('chat message', msg);
-	});
+      db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log('SMS adding to DB...');
+      })
+
+      io.emit('chat message', msg);
+    });
+  }
 
 
-	// Disconnect
-	socket.on('disconnect', () => {
-		console.log('Socket STOP!');
-	});
+  // Disconnect
+  socket.on('disconnect', () => {
+    console.log('Socket STOP!');
+  });
 });
 
 // Notification
@@ -146,8 +153,8 @@ var sendNotification = function(data) {
 var message = {
   app_id: "4f74eaf6-6ee9-43a6-a7b1-fccf3f809129",
   contents: {
-  	"en": `Расписание на DAY уже на сайте`,
-  	"ru": `Расписание на DAY уже на сайте`
+  	"en": `Расписание на завтра уже на сайте`,
+  	"ru": `Расписание на завтра уже на сайте`
   },
   included_segments: ["All"],
   headings: {
