@@ -17,7 +17,7 @@
 	<div class="main">
 		<div class="form">
 			<form action="">
-				<input class="m" type="text" placeholder="Введите сообщение...">
+				<input class="m" type="text" placeholder="Введите сообщение..." name="message">
 				<button class="send" type="submit">Отправить</button>
 			</form>
 		</div>
@@ -37,6 +37,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
 	$(function () {
+
 		var socket = io();
 
 		$('form').submit((e) => {
@@ -48,6 +49,8 @@
 
 		socket.on('chat message', function(msg){
 			$('.sms').append($('<li>').text(msg));
+
+			// Прокрутка до конца списка
 			scroll();
 	    });
 	  });

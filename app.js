@@ -3,6 +3,9 @@ const express = require('express');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+// OneSignal
+var https = require('https');
+
 var fs = require("fs");
 const path = require('path');
 
@@ -97,20 +100,31 @@ io.on('connection', (socket) => {
   });
 
   // Send sms
-  return function returnDay(){
-    socket.on('chat message', (msg) => {
+  socket.on('chat message', (msg) => {
 
-      let sql = `INSERT INTO messages (id, text) VALUES (NULL, '${msg}')`;
+    let sql = `INSERT INTO messages (text) VALUES ('${msg}')`;
 
-      db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log('SMS adding to DB...');
-      })
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log('SMS adding to DB...');
+    })
 
-      io.emit('chat message', msg);
-    });
-  }
+    io.emit('chat message', msg);
 
+// START
+    // Query to JSONDB
+
+    // var messagesJSON = fs.readFileSync('messages.json');
+    // console.log(messagesJSON)
+
+    // fs.writeFileSync('messages.json', JSON.stringify(msg.one));
+
+    // console.log('Data writing to DB');
+    // var dataIndex = fs.readFileSync('data.json');
+    // io.emit('dataPull', dataAdmin.one);
+    // sendNotification(message);
+// END
+  });
 
   // Disconnect
   socket.on('disconnect', () => {
@@ -133,7 +147,7 @@ var sendNotification = function(data) {
     headers: headers
   };
   
-  var https = require('https');
+
   var req = https.request(options, function(res) {  
     res.on('data', function(data) {
       console.log("Response:");
@@ -163,6 +177,10 @@ var message = {
   },
 
 };
+
+
+
+
 
 // Start server
 http.listen(PORT, () => {

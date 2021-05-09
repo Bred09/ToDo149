@@ -1,0 +1,31 @@
+[
+	{
+		"type":"header",
+		"version":"4.9.0.1",
+		"comment":"Export to JSON plugin for PHPMyAdmin"
+	},
+	{
+		"type":"database",
+		"name":"todo149"
+	},
+	{
+		"type":"table",
+		"name":"messages",
+		"database":"todo149",
+		"data":
+		[
+			{"id":"1","text":"Hi"},
+			{"id":"2","text":"ertertr"},
+			{"id":"3","text":"fgh"},
+			{"id":"4","text":"dfgfdg"},
+			{"id":"5","text":"Hey? bro!"},
+			{"id":"6","text":"Last SMS"},
+			{"id":7,"text":"New SMS!"},
+			{"id":8,"text":"Hi!"},
+			{"id":9,"text":"New SMS!"},
+			{"id":10,"text":"Hi!"},
+			{"id":11,"text":"New SMS!"},
+			{"id":12,"text":"Hi!"}
+		]
+	}
+]
